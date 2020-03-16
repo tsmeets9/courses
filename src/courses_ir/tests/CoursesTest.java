@@ -27,8 +27,8 @@ class CoursesTest {
 		assertEquals(Set.of(logic, math), student1.getCourses());
 		assertEquals(Set.of(logic), student2.getCourses());
 		
-//		assertEquals(logic.getStudent("r0001"), student1);
-//		assertEquals(student1.getCourse("Logic"), logic);
+		assertEquals(logic.getStudent("r0001"), student1);
+		assertEquals(student1.getCourse("Logic"), logic);
 	}
 
 }

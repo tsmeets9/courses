@@ -28,14 +28,14 @@ public class Course {
 			    		((Student)object).courses != null) &&
 			m.allMatch(object ->
 			    object instanceof Course ?
-			    		((Course)object).students.stream().allMatch(s ->
+			    		((Course)object).students.values().stream().allMatch(s ->
 			    		    m.contains(s) &&
-			    		    s.courses.contains((Course)object)
+			    		    s.courses.values().contains((Course)object)
 			    		)
 			    :
-			    	    ((Student)object).courses.stream().allMatch(c ->
+			    	    ((Student)object).courses.values().stream().allMatch(c ->
 			    	    	m.contains(c) &&
-			    	    	c.students.contains((Student)object)
+			    	    	c.students.values().contains((Student)object)
 			    	    )
 			)
 		);
@@ -43,17 +43,25 @@ public class Course {
 	/**
 	 * @invar | getPeerGroup(this) != null
 	 */
-	private String name;
-	Set<Student> students = 
-			new HashSet<Student>();
+	String name;
+	Map<String, Student> students = 
+			new HashMap<String, Student>();
 			//Hashtabel kan heel efficient nagaan of een element er in zit, in constante tijd
 	
+	public Student getStudent(String username) {
+//		for (Student student: students) {
+//			if (student.username.equals(username))
+//				return student;
+//		}
+//		return null;
+		return students.get(username);
+	}
 	public String getName() {
 		return name;
 	}
 	public Set<Student> getStudents() {
 		// return students; REPRESENTATION EXPOSURE
-		return Set.copyOf(students);
+		return Set.copyOf(students.values());
 		
 	}
 	
@@ -62,8 +70,8 @@ public class Course {
 	}
 	
 	public void enroll(Student student) {
-		students.add(student);
-		student.courses.add(this);
+		students.put(student.username, student);
+		student.courses.put(this.name, this);
 		
 	}
 }
