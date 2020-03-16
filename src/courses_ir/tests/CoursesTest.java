@@ -29,6 +29,8 @@ class CoursesTest {
 		
 		assertEquals(logic.getStudent("r0001"), student1);
 		assertEquals(student1.getCourse("Logic"), logic);
+		
+		assertEquals(student1.getNbStudentsWithSameProgram(),1);
 	}
 
 }

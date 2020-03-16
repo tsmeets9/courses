@@ -42,6 +42,25 @@ public class Student {
 		this.username = username;
 	}
 	
+	/**
+	 * @pre We only look to the peergroup 
+	 * @post | result == Course.getPeerGroup(this).stream().filter(object -> object instanceof Student &&
+	 * 		 | ((Student)object).getCourses().equals(this.getCourses())).count()
+	 */
+	public int getNbStudentsWithSameProgram() {
+		int size = 0;
+		// Set<Student> students = new HashSet<Student>();
+		for (Course course: this.courses.values()) {
+			for (Student student: course.getStudents()) {
+				if (student.courses.equals(courses))
+					//students.add(student);
+					size++;
+			}
+			break;
+		}
+		return size;
+	}
+	
 	
 
 }
